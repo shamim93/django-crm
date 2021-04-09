@@ -23,6 +23,7 @@ class Product(models.Model):
     price = models.FloatField(null=True)
     category = models.CharField(max_length=250,choices = CATEGORY_CHOICES, null=True,default='indoor')
     description = models.TextField(null=True)
+    tags = models.ManyToManyField("Tag")
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -31,19 +32,27 @@ class Product(models.Model):
     class Meta:
         ordering = ('-created',)
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100, null=True)
+    slug = models.SlugField(max_length=100)
+    
+    def __str__(self):
+        return self.name
+
 class Order(models.Model):
     STATUS_CHOICES=(
         ('pending','Pending'),
         ('processing','Processing'),
         ('delivered','Delivered'),
     )
-    
+    customer = models.ForeignKey(Customer,on_delete=models.SET_NULL,null=True)
+    product = models.ForeignKey(Product,on_delete=models.SET_NULL,null=True)
     created=models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=100,choices=STATUS_CHOICES,default='pending')
     
 
-    def __str__(self):
-        pass
+    # def __str__(self):
+    #     return self.customer
 
     class Meta:
         ordering=('-created',)
