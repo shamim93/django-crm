@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer,Product,Order,Tag
+from .models import Customer,Product,Order,Tag,Category
 
 # Register your models here.
 
@@ -17,8 +17,11 @@ class OrderAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     prepopulated_fields ={'slug':('name',)}
     
-    
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields ={'slug':('name',)}
+ 
 admin.site.register(Customer,CustomerAdmin)
 admin.site.register(Product,ProductAdmin)
 admin.site.register(Order,OrderAdmin)
 admin.site.register(Tag,TagAdmin)
+admin.site.register(Category,CategoryAdmin)

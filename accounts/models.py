@@ -12,16 +12,26 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100,null=True)
+    slug = models.SlugField(max_length=100)
     
-class Product(models.Model):
-    CATEGORY_CHOICES=(
-        ('indoor','Indoor'),
-        ('Outdoor','Out Door'),
-    )
+    def __str__(self):
+        return self.name
+    
+class Product(models.Model): 
+    
+    # CATEGORY_CHOICES=(
+    #     ('indoor','Indoor'),
+    #     ('Outdoor','Out Door'),
+    # )
     
     name = models.CharField(max_length=200,null=True)
     price = models.FloatField(null=True)
-    category = models.CharField(max_length=250,choices = CATEGORY_CHOICES, null=True,default='indoor')
+    # category = models.CharField(max_length=250,choices = CATEGORY_CHOICES, null=True,default='indoor')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True)
     description = models.TextField(null=True)
     tags = models.ManyToManyField("Tag")
     created = models.DateTimeField(auto_now_add=True)
@@ -31,6 +41,8 @@ class Product(models.Model):
 
     class Meta:
         ordering = ('-created',)
+
+        
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, null=True)
