@@ -26,8 +26,8 @@
     </div>
       <div class="card-body">
         
-        <p>Email:</p>
-        <p>Phone:</p>
+        <p>Email: <a href="">{{ customer.email}} </a></p>
+        <p>Phone: <a href="">{{ customer.phone}} </a></p>
       </div>
     </div>
   </div>
@@ -35,11 +35,11 @@
     <div class="card">
     <div class="card-header">
         <h5 class="card-title">Total Orders</h5>
+        
     </div>
       <div class="card-body">
         
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <p>{{ total_orders }}</p>
       </div>
     </div>
   </div>
@@ -59,6 +59,7 @@
     <div class="col">
         <div class="card card-body">
             <table class="table">
+            
                 <tr>
                     <th>Product</th>
                     <th>Category</th>
@@ -67,6 +68,16 @@
                     <th>Update</th>
                     <th>Remove</th>
                 </tr>
+              {% for order in orders %}
+              <tr>
+                <td>{{ order.product}}</td>
+                <td>{{ order.product.category}}</td>
+                <td>{{ order.created}}</td>
+                <td>{{ order.status}}</td>
+                <td><a href="" class="btn btn-warning">Update</a></td>
+                <td><a href="" class="btn btn-danger">Remove</a></td>
+              </tr>
+              {% endfor %}
             </table>
         </div>
     </div>

@@ -1,10 +1,34 @@
-from django.shortcuts import render,HttpResponse,redirect
-
+from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
+from .models import Product,Customer,Order
+from django.db.models import Sum
 def home(request):
-    return render(request,"accounts/dashboard.html")
+    customers = Customer.objects.all()
+    orders = Order.objects.all()
+    total_orders = orders.count()
+    order_delivered = orders.filter(status='delivered').count()
+    order_pending = orders.filter(status='pending').count()
+    context = {
+        'customers': customers,
+        'orders': orders,
+        'total_orders': total_orders,
+        'order_delivered' : order_delivered,
+        'order_pending': order_pending
+    }
+    return render(request,"accounts/dashboard.html",context)
 
 def product(request):
-    return render(request,"accounts/products.html")
+    products = Product.objects.all()
+    total_price =  sum(products.values_list('price', flat=True))
+    context ={
+        'products': products,
+        'total_price':total_price
+    }
+    return render(request,"accounts/products.html",context)
 
-def customer(request):
-    return render(request,"accounts/customer.html")
+def customer(request,customer_id):
+    customer = get_object_or_404(Customer,pk=customer_id)
+    
+    # total_orders = customer
+    orders = customer.order_set.all()
+    total_orders = orders.count()
+    return render(request,"accounts/customer.html",{'customer':customer,'orders':orders,'total_orders':total_orders})
