@@ -1,0 +1,20 @@
+{% extends "accounts/base.html" %}
+
+{% block title %}
+    Create Customer
+{% endblock title %}
+{% block content %}
+ <div class="container">
+       <h2 class="text-center">Create Customer </h2>
+       {% if error %}
+        <div class="alert alert-warning">
+            {{ error }}
+        </div>
+        {% endif %}
+    <form action="" method="POST">
+    {% csrf_token %}
+        {{ customerform.as_p }}
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+ </div>
+{% endblock %}
