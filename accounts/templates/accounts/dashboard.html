@@ -11,7 +11,7 @@
     <h4>Customers</h4>
     <hr>
         <div class="card card-body">
-            <a class="btn btn-primary btn-sm btn-block" href="#">Create Customer</a>
+            <a class="btn btn-primary btn-sm btn-block" href="{% url 'accounts:createcustomer' %}">Create Customer</a>
         </div>
     <table class="table">
       <tr>
@@ -32,7 +32,7 @@
     <hr>
         <div class="card card-body">
         
-            <a class="btn btn-primary btn-sm btn-block" href="#">Create Order</a>
+            <a class="btn btn-primary btn-sm btn-block" href="{% url 'accounts:createorder' %}">Create Order</a>
         <table class="table">
         <tr>
         <th>Product</th>
@@ -46,7 +46,7 @@
           <td>{{ order.product }}</td>
           <td>{{ order.created }}</td>
           <td>{{ order.status }}</td>
-          <td><a href="#" class="btn btn-warning">Update</a></td>
+          <td><a href="{% url 'accounts:editorder' order.id %}" class="btn btn-warning">Update</a></td>
           <td><a href="#" class="btn btn-danger">Remove</a></td>
         </tr>
       {% endfor %}
