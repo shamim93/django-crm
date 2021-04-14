@@ -1,0 +1,15 @@
+{% extends "accounts/base.html" %}
+
+{% block title %}
+    Create Order
+{% endblock title %}
+{% block content %}
+   <div class="container">
+    <h2 class="text-center">Create new order</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ orderform.as_p }}
+        <button type="submit" class="btn btn-info">Create Order</button>
+    </form>
+   </div>
+{% endblock %}
